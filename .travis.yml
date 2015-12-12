@@ -8,4 +8,7 @@ before_script:
   - composer install
 
 script:
-  - phpunit --configuration ./test/phpunit.xml --coverage-text
+  - phpunit --configuration ./test/phpunit.xml
+
+after_script:
+  - travis_retry php ./vendor/bin/coveralls
