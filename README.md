@@ -1,3 +1,4 @@
 # php-simple-router 
-[![Build Status](https://travis-ci.org/alexpts/php-simple-router.svg?branch=master)](https://travis-ci.org/alexpts/php-simple-router)
+[![Build status][Master image]][Master]
+[![Coverage Status][Master coverage image]][Master coverage]
 Simple router compatible with the PSR-7
