@@ -64,6 +64,14 @@ class DemoController
     }
 
     /**
+     * @return string
+     */
+    public function remove()
+    {
+        return 'remove';
+    }
+
+    /**
      * @param string $id
      * @return string
      */

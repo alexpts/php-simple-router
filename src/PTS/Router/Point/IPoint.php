@@ -14,7 +14,7 @@ interface IPoint
      * @param array $arguments
      * @return mixed
      */
-    public function call(callable $callable, array $arguments);
+    public function call(callable $callable, array $arguments = []);
 
     /**
      * @param array $args

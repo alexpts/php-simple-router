@@ -16,12 +16,13 @@ class Matcher
      */
     public function match(CollectionRoute $routes, $path, $method = null, $isXHR = null)
     {
+        $method = $method ? strtoupper($method) : null;
         foreach ($routes->getRoutes() as $name => $route) {
             if ($method && !$this->isAllowHttpMethod($method, $route)) {
                 continue;
             }
 
-            if ($isXHR !== null && !$this->isAllowRequestType($route, $isXHR)) {
+            if (is_bool($isXHR) !== null && !$this->isAllowRequestType($route, $isXHR)) {
                 continue;
             }
 
@@ -30,7 +31,24 @@ class Matcher
             }
         }
 
-        throw new \Exception('Not found', 404);
+        throw new \Exception('Not found');
+    }
+
+    /**
+     * @param CollectionRoute $routes
+     * @param string $path
+     * @param null $method
+     * @param null $isXHR
+     * @return IPoint
+     * @throws \Exception
+     */
+    public function matchFirst(CollectionRoute $routes, $path, $method = null, $isXHR = null)
+    {
+        foreach ($this->match($routes, $path, $method, $isXHR) as $endPoint) {
+            return $endPoint;
+        }
+
+        throw new \Exception('Not found');
     }
 
     /**
@@ -102,5 +120,4 @@ class Matcher
 
         return in_array($method, $route->methods);
     }
-
 }
