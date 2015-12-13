@@ -5,7 +5,7 @@ interface IPoint
 {
     /**
      * @param array $handlerArgs
-     * @return array
+     * @return callable
      */
     public function getCall(array $handlerArgs = []);
 

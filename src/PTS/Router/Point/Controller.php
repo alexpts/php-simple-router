@@ -1,7 +1,6 @@
 <?php
 namespace PTS\Router\Point;
 
-use PTS\Router\NotCallableException;
 
 class Controller extends AbstractPoint implements IPoint
 {
@@ -25,16 +24,19 @@ class Controller extends AbstractPoint implements IPoint
 
     /**
      * @param array $handlerArgs
-     * @return array
-     * @throws NotCallableException
+     * @return callable
+     * @throws \BadMethodCallException
      */
     public function getCall(array $handlerArgs = [])
     {
-        $this->checkController($this->controller);
+        if (!$this->callable) {
+            $this->checkController($this->controller);
 
-        $controller = new $this->controller(... $handlerArgs);
-        $this->checkAction($controller, $this->action);
+            $controller = new $this->controller(... $handlerArgs);
+            $this->checkAction($controller, $this->action);
 
-        return [[$controller, $this->action], $this->getArguments()];
+            $this->callable = [$controller, $this->action];
+        }
+        return $this->callable;
     }
 }

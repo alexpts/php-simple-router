@@ -1,12 +1,11 @@
 <?php
 namespace PTS\Router\Point;
 
-use PTS\Router\NotCallableException;
-
 abstract class AbstractPoint
 {
     /** @var array */
     protected $arguments = [];
+    protected $callable;
 
     /**
      * @param array $params
@@ -72,24 +71,24 @@ abstract class AbstractPoint
 
     /**
      * @param $controller
-     * @throws NotCallableException
+     * @throws \BadMethodCallException
      */
     protected function checkController($controller)
     {
         if (!class_exists($controller)) {
-            throw new NotCallableException('Controller not found');
+            throw new \BadMethodCallException('Controller not found');
         }
     }
 
     /**
      * @param $controller
      * @param string $action
-     * @throws NotCallableException
+     * @throws \BadMethodCallException
      */
     protected function checkAction($controller, $action)
     {
         if (!method_exists($controller, $action)) {
-            throw new NotCallableException('Action not found');
+            throw new \BadMethodCallException('Action not found');
         }
     }
 

@@ -4,14 +4,12 @@ use PTS\Router\CollectionRoute;
 use PTS\Router\Route;
 use PTS\Router\Point;
 
+include_once __DIR__ . '/DemoController.php';
+
 class CollectionRouteTest extends PHPUnit_Framework_TestCase
 {
     /** @var CollectionRoute */
     protected $routes;
-
-    public function action(){
-        return 1;
-    }
 
     protected function setUp()
     {
@@ -43,7 +41,7 @@ class CollectionRouteTest extends PHPUnit_Framework_TestCase
     public function testAddDuplicate()
     {
         $endPoint = new Point\Controller([
-            'controller' =>'CollectionRouteTest',
+            'controller' =>'DemoController',
             'action' => 'action'
         ]);
         $this->routes->add('default', new Route('/blog/', $endPoint));
@@ -53,7 +51,7 @@ class CollectionRouteTest extends PHPUnit_Framework_TestCase
     public function testClean()
     {
         $endPoint = new Point\Controller([
-            'controller' =>'CollectionRouteTest',
+            'controller' =>'DemoController',
             'action' => 'action'
         ]);
         $this->routes->add('default', new Route('/blog/', $endPoint));
@@ -66,7 +64,7 @@ class CollectionRouteTest extends PHPUnit_Framework_TestCase
     public function testRemove()
     {
         $endPoint = new Point\Controller([
-            'controller' =>'CollectionRouteTest',
+            'controller' =>'DemoController',
             'action' => 'action'
         ]);
         $this->routes->add('default', new Route('/blog/', $endPoint));
@@ -79,7 +77,7 @@ class CollectionRouteTest extends PHPUnit_Framework_TestCase
     public function testRemoveWithPriority()
     {
         $endPoint = new Point\Controller([
-            'controller' =>'CollectionRouteTest',
+            'controller' =>'DemoController',
             'action' => 'action'
         ]);
         $this->routes->add('default', new Route('/blog/', $endPoint), 70);
@@ -93,7 +91,7 @@ class CollectionRouteTest extends PHPUnit_Framework_TestCase
     public function testPriority()
     {
         $endPoint = new Point\Controller([
-            'controller' =>'CollectionRouteTest',
+            'controller' =>'DemoController',
             'action' => 'action'
         ]);
         $this->routes->add('default', new Route('/blog/', $endPoint), 70);
