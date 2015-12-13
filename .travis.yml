@@ -11,4 +11,4 @@ script:
   - phpunit --configuration ./test/phpunit.xml
 
 after_script:
-  - travis_retry php ./vendor/bin/coveralls -v
+  - travis_retry php ./vendor/bin/test-reporter --coverage-report=/test/clover.xml
