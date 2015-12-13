@@ -3,6 +3,7 @@
     "description": "Simple router compatible with the PSR-7",
     "homepage": "https://github.com/alexpts/php-simple-router",
     "license": "MIT",
+    "type": "library",
     "keywords": [
         "router",
         "psr-7"

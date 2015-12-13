@@ -17,7 +17,7 @@ class CollectionRoute
      */
     protected function isHas($name)
     {
-        foreach ($this->routes as $priority => $items) {
+        foreach ($this->routes as $items) {
             if (isset($items[$name])) {
                 return true;
             }

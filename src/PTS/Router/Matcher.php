@@ -17,7 +17,7 @@ class Matcher
     public function match(CollectionRoute $routes, $path, $method = null, $isXHR = null)
     {
         $method = $method ? strtoupper($method) : null;
-        foreach ($routes->getRoutes() as $name => $route) {
+        foreach ($routes->getRoutes() as $route) {
             if ($method && !$this->isAllowHttpMethod($method, $route)) {
                 continue;
             }
