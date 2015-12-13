@@ -10,7 +10,7 @@ class DynamicController extends AbstractPoint implements IPoint
 
     /**
      * @param array $handlerArgs
-     * @return array
+     * @return callable
      * @throws \BadMethodCallException
      */
     public function getCall(array $handlerArgs = [])
@@ -32,10 +32,12 @@ class DynamicController extends AbstractPoint implements IPoint
             unset($arguments['action']);
         }
 
+        $this->setArguments($arguments);
+
         $controller = new $controller(... $handlerArgs);
         $this->checkAction($controller, $action);
 
-        return [[$controller, $action], $arguments];
+        return [$controller, $action];
     }
 
     /**

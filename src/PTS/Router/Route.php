@@ -18,13 +18,19 @@ class Route
     public $methods = [];
 
     /**
-     * @param string $path - путь в виде строки/регулярки с плейсхолдерами вида /blog/{slug}. Если нужно указать группу с круглыми скобками, то следует ее указывать как (?:{slug}), чтобы результат группировки не попал в arguments
+     * @param string $path - путь в виде строки/регулярки с плейсхолдерами вида /blog/{slug}. Если нужно указать
+     * группу с круглыми скобками, то следует ее указывать как (?:{slug}), чтобы результат группировки не попал в arguments
+     *
      * @param Point\IPoint $endPoint
-     * @param array $restrictions - ограничения на placeholder - ['slug' => '\d+'], если нет ограничения, то расценивается как *
+     * @param array $restrictions - ограничения на placeholder - ['slug' => '\d+'], если нет ограничения,
+     * то расценивается как *
+     *
      * @param int|null $typeRequest
      * @param array $allowHttpMethods
      */
-    public function __construct($path, Point\IPoint $endPoint,
+    public function __construct(
+        $path, Point\IPoint
+        $endPoint,
         array $restrictions = [], $typeRequest = null,
         array $allowHttpMethods = []
     )

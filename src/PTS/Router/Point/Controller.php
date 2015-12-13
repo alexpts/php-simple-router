@@ -1,7 +1,6 @@
 <?php
 namespace PTS\Router\Point;
 
-
 class Controller extends AbstractPoint implements IPoint
 {
     /** @var string */

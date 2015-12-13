@@ -52,11 +52,12 @@ class CollectionRoute
     {
         if (is_int($priority) && isset($this->routes[$priority][$name])) {
             unset($this->routes[$priority][$name]);
-        } else {
-            foreach ($this->routes as $priority => $items) {
-                if (isset($items[$name])) {
-                    unset($this->routes[$priority][$name]);
-                }
+            return $this;
+        }
+
+        foreach ($this->routes as $items) {
+            if (isset($items[$name])) {
+                unset($this->routes[$priority][$name]);
             }
         }
 
@@ -80,7 +81,7 @@ class CollectionRoute
         $listRoutes = [];
         krsort($this->routes, SORT_NUMERIC);
 
-        foreach ($this->routes as $priority => $routes) {
+        foreach ($this->routes as $routes) {
             foreach ($routes as $name => $route) {
                 $listRoutes[$name] = $route;
             }

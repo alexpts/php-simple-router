@@ -1,8 +1,6 @@
 <?php
 namespace PTS\Router\Point;
 
-use PTS\Router\NotCallableException;
-
 class ControllerDynamicAction extends AbstractPoint implements IPoint
 {
     /** @var string */
@@ -23,8 +21,7 @@ class ControllerDynamicAction extends AbstractPoint implements IPoint
 
     /**
      * @param array $handlerArgs
-     * @return array
-     * @throws NotCallableException
+     * @return callable
      */
     public function getCall(array $handlerArgs = [])
     {
@@ -38,9 +35,11 @@ class ControllerDynamicAction extends AbstractPoint implements IPoint
             unset($arguments['action']);
         }
 
+        $this->setArguments($arguments);
+
         $controller = new $this->controller($handlerArgs);
         $this->checkAction($controller, $action);
 
-        return [[$controller, $action], $arguments];
+        return [$controller, $action];
     }
 }

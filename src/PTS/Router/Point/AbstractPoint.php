@@ -91,5 +91,4 @@ abstract class AbstractPoint
             throw new \BadMethodCallException('Action not found');
         }
     }
-
 }
