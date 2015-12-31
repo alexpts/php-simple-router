@@ -9,7 +9,7 @@ class Matcher
     /**
      * @param CollectionRoute $routes
      * @param string $path
-     * @param null|bool $method
+     * @param null|string $method
      * @param null|bool $isXHR
      * @return \Generator
      * @throws \Exception
