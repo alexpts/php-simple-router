@@ -16,13 +16,12 @@ class Matcher
      */
     public function match(CollectionRoute $routes, $path, $method = null, $isXHR = null)
     {
-        $method = $method ? strtoupper($method) : null;
         foreach ($routes->getRoutes() as $route) {
-            if ($method && !$this->isAllowHttpMethod($method, $route)) {
+            if ($method !== null && !$this->isAllowHttpMethod($method, $route)) {
                 continue;
             }
 
-            if (is_bool($isXHR) !== null && !$this->isAllowRequestType($route, $isXHR)) {
+            if (is_bool($isXHR) && !$this->isAllowRequestType($route, $isXHR)) {
                 continue;
             }
 
@@ -118,6 +117,6 @@ class Matcher
             return true;
         }
 
-        return in_array($method, $route->methods);
+        return in_array(strtoupper($method), $route->methods);
     }
 }
