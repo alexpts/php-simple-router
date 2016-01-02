@@ -25,7 +25,8 @@ class Matcher
                 continue;
             }
 
-            if ($point = $this->matchRule($route, $path)) {
+            $point = $this->matchRule($route, $path);
+            if ($point) {
                 yield $point;
             }
         }
@@ -38,16 +39,12 @@ class Matcher
      * @param string $path
      * @param null $method
      * @param null $isXHR
-     * @return IPoint
+     * @return IPoint|null
      * @throws \Exception
      */
     public function matchFirst(CollectionRoute $routes, $path, $method = null, $isXHR = null)
     {
-        foreach ($this->match($routes, $path, $method, $isXHR) as $endPoint) {
-            return $endPoint;
-        }
-
-        throw new \Exception('Not found');
+        return $this->match($routes, $path, $method, $isXHR)->current();
     }
 
     /**

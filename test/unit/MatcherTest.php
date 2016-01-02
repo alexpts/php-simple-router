@@ -44,7 +44,7 @@ class MatcherTest extends PHPUnit_Framework_TestCase
         $this->routes->add('profile', $route, 50);
 
         $endPoint = new Point\CallablePoint([
-            'callable' => function(){
+            'callable' => function () {
                 return '404';
             }
         ]);
@@ -116,5 +116,17 @@ class MatcherTest extends PHPUnit_Framework_TestCase
         $endPoint = $this->matcher->matchFirst($this->routes, '/blog/23/', null, true);
         $response = $endPoint->call($endPoint->getCall());
         $this->assertEquals('404', $response);
+    }
+
+    public function testMatch()
+    {
+        foreach ($this->matcher->matchFirst($this->routes, '/ru/users/23/remove/', 'DELETE', true) as $endPoint) {
+            /** @var Point\IPoint $endPoint */
+            $endPoint->getCall();
+
+            $this->assertEquals('23', $endPoint->getArgument('id'));
+            $this->assertEquals('ru', $endPoint->getArgument('lang'));
+            $this->assertCount(2, $endPoint->getArguments());
+        }
     }
 }
