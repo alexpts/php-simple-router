@@ -16,7 +16,7 @@ class DynamicController extends AbstractPoint implements IPoint
     public function getCall(array $handlerArgs = [])
     {
         $arguments = $this->getArguments();
-        if (!array_key_exists('controller', $arguments)){
+        if (!array_key_exists('controller', $arguments)) {
             throw new \BadMethodCallException('Not found controller name for dynamic controller point');
         }
 
