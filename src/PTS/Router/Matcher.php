@@ -18,15 +18,7 @@ class Matcher
     {
         $find = 0;
         foreach ($routes->getRoutes() as $route) {
-            if ($method !== null && !$this->isAllowHttpMethod($method, $route)) {
-                continue;
-            }
-
-            if (is_bool($isXHR) && !$this->isAllowRequestType($route, $isXHR)) {
-                continue;
-            }
-
-            $point = $this->matchRule($route, $path);
+            $point = $this->matchRoute($route, $path, $method, $isXHR);
             if ($point) {
                 $find++;
                 yield $point;
@@ -36,6 +28,26 @@ class Matcher
         if (!$find) {
             throw new \Exception('Not found');
         }
+    }
+
+    /**
+     * @param Route $route
+     * @param string $path
+     * @param null|string $method
+     * @param null|bool $isXHR
+     * @return false|null|IPoint
+     */
+    protected function matchRoute(Route $route, $path, $method = null, $isXHR = null)
+    {
+        if ($method !== null && !$this->isAllowHttpMethod($method, $route)) {
+            return null;
+        }
+
+        if (is_bool($isXHR) && !$this->isAllowRequestType($route, $isXHR)) {
+            return null;
+        }
+
+        return $this->matchRule($route, $path);
     }
 
     /**
