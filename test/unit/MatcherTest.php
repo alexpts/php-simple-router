@@ -36,7 +36,7 @@ class MatcherTest extends PHPUnit_Framework_TestCase
         $route = new Route('/blog/{id}/', $endPoint, ['id' => '\d+'], Route::ONLY_NO_XHR, ['get']);
         $this->routes->add('blog', $route, 20);
 
-        $endPoint = new Point\Controller([
+        $endPoint = new Point\ControllerPoint([
             'controller' => DemoController::class,
             'action' => 'user',
         ]);
@@ -74,7 +74,8 @@ class MatcherTest extends PHPUnit_Framework_TestCase
      */
     public function testBadHttpMethod()
     {
-        $this->matcher->matchFirst($this->routes, '/profile/23/', 'POST');
+        $endPoint = $this->matcher->matchFirst($this->routes, '/profile/23/', 'POST');
+        $this->assertNull($endPoint);
     }
 
     public function testOnlyXHR()
@@ -120,7 +121,7 @@ class MatcherTest extends PHPUnit_Framework_TestCase
 
     public function testMatch()
     {
-        foreach ($this->matcher->matchFirst($this->routes, '/ru/users/23/remove/', 'DELETE', true) as $endPoint) {
+        foreach ($this->matcher->match($this->routes, '/ru/users/23/remove/', 'DELETE', true) as $endPoint) {
             /** @var Point\IPoint $endPoint */
             $endPoint->getCall();
 

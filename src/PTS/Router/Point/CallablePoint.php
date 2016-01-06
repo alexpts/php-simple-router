@@ -9,7 +9,7 @@ class CallablePoint extends AbstractPoint implements IPoint
      */
     public function __construct(array $params)
     {
-        if (!isset($params['callable'])) {
+        if (!array_key_exists('callable', $params)) {
             throw new \BadMethodCallException('Bad params');
         }
 

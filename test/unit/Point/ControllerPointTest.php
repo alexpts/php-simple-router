@@ -9,7 +9,7 @@ class ControllerPointTest extends PHPUnit_Framework_TestCase
 
     public function testCreate()
     {
-        $endPoint = new Point\Controller([
+        $endPoint = new Point\ControllerPoint([
             'controller' => 'DemoController',
             'action' => 'action'
         ]);
@@ -29,7 +29,7 @@ class ControllerPointTest extends PHPUnit_Framework_TestCase
      */
     public function testCreateWithoutController()
     {
-        $endPoint = new Point\Controller([
+        $endPoint = new Point\ControllerPoint([
             'action' => 'action'
         ]);
     }
@@ -40,7 +40,7 @@ class ControllerPointTest extends PHPUnit_Framework_TestCase
      */
     public function testCreateWithoutAction()
     {
-        $endPoint = new Point\Controller([
+        $endPoint = new Point\ControllerPoint([
             'controller' => 'DemoController'
         ]);
     }

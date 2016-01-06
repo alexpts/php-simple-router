@@ -9,21 +9,21 @@ class AbstractPointTest extends PHPUnit_Framework_TestCase
 
     public function testCreate()
     {
-        $endPoint = new Point\Controller([
+        $endPoint = new Point\ControllerPoint([
             'controller' => 'DemoController',
             'action' => 'action'
         ]);
 
         $callable = $endPoint->getCall();
 
-        $this->assertCount(2, $callable);
+        $this::assertCount(2, $callable);
         $this->assertInstanceOf('DemoController', $callable[0]);
         $this->assertEquals('action', $callable[1]);
     }
 
     public function testCreateWithArguments()
     {
-        $endPoint = new Point\Controller([
+        $endPoint = new Point\ControllerPoint([
             'controller' => 'DemoController',
             'action' => 'action',
             'arguments' => [
@@ -44,7 +44,7 @@ class AbstractPointTest extends PHPUnit_Framework_TestCase
 
     public function testSetArguments()
     {
-        $endPoint = new Point\Controller([
+        $endPoint = new Point\ControllerPoint([
             'controller' => 'DemoController',
             'action' => 'action'
         ]);
@@ -63,7 +63,7 @@ class AbstractPointTest extends PHPUnit_Framework_TestCase
 
     public function testSetGetArgument()
     {
-        $endPoint = new Point\Controller([
+        $endPoint = new Point\ControllerPoint([
             'controller' => 'DemoController',
             'action' => 'action'
         ]);
@@ -80,7 +80,7 @@ class AbstractPointTest extends PHPUnit_Framework_TestCase
 
     public function testGetCall()
     {
-        $endPoint = new Point\Controller([
+        $endPoint = new Point\ControllerPoint([
             'controller' => 'DemoController',
             'action' => 'action'
         ]);
@@ -98,7 +98,7 @@ class AbstractPointTest extends PHPUnit_Framework_TestCase
 
     public function testGetCallWithParams()
     {
-        $endPoint = new Point\Controller([
+        $endPoint = new Point\ControllerPoint([
             'controller' => 'DemoController',
             'action' => 'action'
         ]);
@@ -119,7 +119,7 @@ class AbstractPointTest extends PHPUnit_Framework_TestCase
      */
     public function testBadControllerAction()
     {
-        $endPoint = new Point\Controller([
+        $endPoint = new Point\ControllerPoint([
             'controller' => 'DemoController',
             'action' => 'not_exist_action'
         ]);
@@ -133,7 +133,7 @@ class AbstractPointTest extends PHPUnit_Framework_TestCase
      */
     public function testBadController()
     {
-        $endPoint = new Point\Controller([
+        $endPoint = new Point\ControllerPoint([
             'controller' => 'NotExistDemoController',
             'action' => 'action'
         ]);
@@ -143,7 +143,7 @@ class AbstractPointTest extends PHPUnit_Framework_TestCase
 
     public function testCall()
     {
-        $endPoint = new Point\Controller([
+        $endPoint = new Point\ControllerPoint([
             'controller' => 'DemoController',
             'action' => 'action'
         ]);

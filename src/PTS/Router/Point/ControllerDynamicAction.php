@@ -12,7 +12,7 @@ class ControllerDynamicAction extends AbstractPoint implements IPoint
      */
     public function __construct(array $params)
     {
-        if (!isset($params['controller'])) {
+        if (!array_key_exists('controller', $params)) {
             throw new \BadMethodCallException('Bad params');
         }
 
@@ -21,7 +21,8 @@ class ControllerDynamicAction extends AbstractPoint implements IPoint
 
     /**
      * @param array $handlerArgs
-     * @return callable
+     * @return array|callable
+     * @throws \BadMethodCallException
      */
     public function getCall(array $handlerArgs = [])
     {

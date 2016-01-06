@@ -16,6 +16,7 @@ class Matcher
      */
     public function match(CollectionRoute $routes, $path, $method = null, $isXHR = null)
     {
+        $find = 0;
         foreach ($routes->getRoutes() as $route) {
             if ($method !== null && !$this->isAllowHttpMethod($method, $route)) {
                 continue;
@@ -27,11 +28,14 @@ class Matcher
 
             $point = $this->matchRule($route, $path);
             if ($point) {
+                $find++;
                 yield $point;
             }
         }
 
-        throw new \Exception('Not found');
+        if (!$find) {
+            throw new \Exception('Not found');
+        }
     }
 
     /**
@@ -56,10 +60,10 @@ class Matcher
     {
         switch ($route->typeRequest) {
             case $route::ONLY_XHR:
-                if (!$isXHR) return false;
+                if (!$isXHR) { return false; }
                 break;
             case $route::ONLY_NO_XHR:
-                if ($isXHR) return false;
+                if ($isXHR) { return false; }
                 break;
         }
 
@@ -94,7 +98,7 @@ class Matcher
         if (preg_match_all('~{(.*)}~Uiu', $regexp, $placeholders)) {
             foreach ($placeholders[0] as $index => $match) {
                 $name = $placeholders[1][$index];
-                $replace = isset($route->restrictions[$name]) ? $route->restrictions[$name] : '.*';
+                $replace = array_key_exists($name, $route->restrictions) ? $route->restrictions[$name] : '.*';
                 $replace = '(?<'.$name.'>'.$replace.')';
                 $regexp = str_replace($match, $replace, $regexp);
             }
@@ -110,10 +114,11 @@ class Matcher
      */
     protected function isAllowHttpMethod($method, Route $route)
     {
-        if (empty($route->methods)) {
+        if (count($route->methods) === 0) {
             return true;
         }
 
-        return in_array(strtoupper($method), $route->methods);
+
+        return in_array(strtoupper($method), $route->methods, true);
     }
 }

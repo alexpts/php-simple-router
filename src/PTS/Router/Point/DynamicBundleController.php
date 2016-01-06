@@ -1,7 +1,7 @@
 <?php
 namespace PTS\Router\Point;
 
-class DynamicBundleController extends DynamicController implements IPoint
+class DynamicBundleController extends DynamicController
 {
     /**
      * @return string

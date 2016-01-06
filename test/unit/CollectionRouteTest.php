@@ -23,7 +23,7 @@ class CollectionRouteTest extends PHPUnit_Framework_TestCase
 
     public function testAdd()
     {
-        $endPoint = new Point\Controller([
+        $endPoint = new Point\ControllerPoint([
             'controller' =>'CollectionRouteTest',
             'action' => 'action'
         ]);
@@ -40,7 +40,7 @@ class CollectionRouteTest extends PHPUnit_Framework_TestCase
      */
     public function testAddDuplicate()
     {
-        $endPoint = new Point\Controller([
+        $endPoint = new Point\ControllerPoint([
             'controller' =>'DemoController',
             'action' => 'action'
         ]);
@@ -50,7 +50,7 @@ class CollectionRouteTest extends PHPUnit_Framework_TestCase
 
     public function testClean()
     {
-        $endPoint = new Point\Controller([
+        $endPoint = new Point\ControllerPoint([
             'controller' =>'DemoController',
             'action' => 'action'
         ]);
@@ -63,7 +63,7 @@ class CollectionRouteTest extends PHPUnit_Framework_TestCase
 
     public function testRemove()
     {
-        $endPoint = new Point\Controller([
+        $endPoint = new Point\ControllerPoint([
             'controller' =>'DemoController',
             'action' => 'action'
         ]);
@@ -76,7 +76,7 @@ class CollectionRouteTest extends PHPUnit_Framework_TestCase
 
     public function testRemoveWithPriority()
     {
-        $endPoint = new Point\Controller([
+        $endPoint = new Point\ControllerPoint([
             'controller' =>'DemoController',
             'action' => 'action'
         ]);
@@ -90,7 +90,7 @@ class CollectionRouteTest extends PHPUnit_Framework_TestCase
 
     public function testPriority()
     {
-        $endPoint = new Point\Controller([
+        $endPoint = new Point\ControllerPoint([
             'controller' =>'DemoController',
             'action' => 'action'
         ]);

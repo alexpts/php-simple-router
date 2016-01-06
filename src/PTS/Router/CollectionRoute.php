@@ -18,7 +18,7 @@ class CollectionRoute
     protected function isHas($name)
     {
         foreach ($this->routes as $items) {
-            if (isset($items[$name])) {
+            if (array_key_exists($name, $items)) {
                 return true;
             }
         }
