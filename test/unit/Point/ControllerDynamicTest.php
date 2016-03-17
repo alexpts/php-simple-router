@@ -17,11 +17,11 @@ class ControllerDynamicTest extends PHPUnit_Framework_TestCase
 
         $callable = $endPoint->getCall();
 
-        $this->assertCount(2, $callable);
-        $this->assertInstanceOf('DemoController', $callable[0]);
-        $this->assertEquals('index', $callable[1]);
+        self::assertCount(2, $callable);
+        self::assertInstanceOf('DemoController', $callable[0]);
+        self::assertEquals('index', $callable[1]);
 
-        $this->assertCount(0, $endPoint->getArguments());
+        self::assertCount(0, $endPoint->getArguments());
     }
 
     public function testCreateWithArguments()
@@ -34,19 +34,18 @@ class ControllerDynamicTest extends PHPUnit_Framework_TestCase
         $endPoint->setArgument('action', 'action');
         $callable = $endPoint->getCall();
 
-        $this->assertCount(2, $callable);
-        $this->assertInstanceOf('DemoController', $callable[0]);
-        $this->assertEquals('action', $callable[1]);
+        self::assertCount(2, $callable);
+        self::assertInstanceOf('DemoController', $callable[0]);
+        self::assertEquals('action', $callable[1]);
 
-        $this->assertCount(0, $endPoint->getArguments());
+        self::assertCount(0, $endPoint->getArguments());
     }
 
-    /**
-     * @expectedException \BadMethodCallException
-     * @expectedExceptionMessage Not found controller name for dynamic controller point
-     */
     public function testWithoutDynamicController()
     {
+        $this->setExpectedException(BadMethodCallException::class,
+            'Not found controller name for dynamic controller point');
+
         $endPoint = new Point\DynamicController();
         $endPoint->getCall();
     }

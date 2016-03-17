@@ -18,16 +18,16 @@ class RouteTest extends PHPUnit_Framework_TestCase
         ], Route::ONLY_XHR, ['get']);
 
 
-        $this->assertTrue($route->endPoint instanceof Point\IPoint);
+        self::assertTrue($route->getPoint() instanceof Point\IPoint);
 
-        $this->assertEquals('demo/{:id}/', $route->path);
+        self::assertEquals('demo/{:id}/', $route->getPath());
 
-        $this->assertCount(1, $route->methods);
-        $this->assertEquals(['GET'], $route->methods);
+        self::assertCount(1, $route->getMethods());
+        self::assertEquals(['GET'], $route->getMethods());
 
-        $this->assertCount(1, $route->restrictions);
-        $this->assertEquals(['id' => '\d+'], $route->restrictions);
+        self::assertCount(1, $route->getRestrictions());
+        self::assertEquals(['id' => '\d+'], $route->getRestrictions());
 
-        $this->assertEquals(Route::ONLY_XHR, $route->typeRequest);
+        self::assertEquals(Route::ONLY_XHR, $route->typeRequest);
     }
 }

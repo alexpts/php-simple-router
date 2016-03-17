@@ -6,21 +6,18 @@ include_once  dirname(__DIR__) . '/DemoController.php';
 
 class CallablePointTest extends PHPUnit_Framework_TestCase
 {
-    /**
-     * @expectedException \BadMethodCallException
-     * @expectedExceptionMessage Bad params
-     */
+
     public function testCreateWithBadParams()
     {
+        $this->setExpectedException(BadMethodCallException::class, 'Bad params');
+
         new Point\CallablePoint([]);
     }
 
-    /**
-     * @expectedException \BadMethodCallException
-     * @expectedExceptionMessage It is not callable
-     */
     public function testCreateWithBadParamCallable()
     {
+        $this->setExpectedException(BadMethodCallException::class, 'It is not callable');
+
         new Point\CallablePoint([
             'callable' => 'notCallable'
         ]);
@@ -33,7 +30,7 @@ class CallablePointTest extends PHPUnit_Framework_TestCase
         ]);
 
         $response = $endPoint->call($endPoint->getCall());
-        $this->assertEquals('index', $response);
+        self::assertEquals('index', $response);
     }
 
     public function testCallStaticMethod()
@@ -43,7 +40,7 @@ class CallablePointTest extends PHPUnit_Framework_TestCase
         ]);
 
         $response = $endPoint->call($endPoint->getCall());
-        $this->assertEquals('getAll', $response);
+        self::assertEquals('getAll', $response);
     }
 
     public function testCallFunction()
@@ -53,7 +50,7 @@ class CallablePointTest extends PHPUnit_Framework_TestCase
         ]);
 
         $response = $endPoint->call($endPoint->getCall(), ['someMd5']);
-        $this->assertEquals(md5('someMd5'), $response);
+        self::assertEquals(md5('someMd5'), $response);
     }
 
     public function testCallClosure()
@@ -65,6 +62,6 @@ class CallablePointTest extends PHPUnit_Framework_TestCase
         ]);
 
         $response = $endPoint->call($endPoint->getCall());
-        $this->assertEquals('function', $response);
+        self::assertEquals('function', $response);
     }
 }

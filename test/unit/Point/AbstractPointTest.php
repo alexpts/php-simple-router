@@ -16,9 +16,9 @@ class AbstractPointTest extends PHPUnit_Framework_TestCase
 
         $callable = $endPoint->getCall();
 
-        $this::assertCount(2, $callable);
-        $this->assertInstanceOf('DemoController', $callable[0]);
-        $this->assertEquals('action', $callable[1]);
+        self::assertCount(2, $callable);
+        self::assertInstanceOf('DemoController', $callable[0]);
+        self::assertEquals('action', $callable[1]);
     }
 
     public function testCreateWithArguments()
@@ -35,11 +35,11 @@ class AbstractPointTest extends PHPUnit_Framework_TestCase
 
         $argsEndPoint = $endPoint->getArguments();
 
-        $this->assertCount(2, $argsEndPoint);
-        $this->assertEquals(2, $argsEndPoint['some']);
-        $this->assertEquals('bar', $argsEndPoint['foo']);
+        self::assertCount(2, $argsEndPoint);
+        self::assertEquals(2, $argsEndPoint['some']);
+        self::assertEquals('bar', $argsEndPoint['foo']);
 
-        $this->assertTrue(!isset($this->{'otherParams'}));
+        self::assertTrue(!isset($this->{'otherParams'}));
     }
 
     public function testSetArguments()
@@ -56,9 +56,9 @@ class AbstractPointTest extends PHPUnit_Framework_TestCase
 
         $argsEndPoint = $endPoint->getArguments();
 
-        $this->assertCount(2, $argsEndPoint);
-        $this->assertEquals(2, $argsEndPoint['some']);
-        $this->assertEquals('bar', $argsEndPoint['foo']);
+        self::assertCount(2, $argsEndPoint);
+        self::assertEquals(2, $argsEndPoint['some']);
+        self::assertEquals('bar', $argsEndPoint['foo']);
     }
 
     public function testSetGetArgument()
@@ -72,10 +72,10 @@ class AbstractPointTest extends PHPUnit_Framework_TestCase
 
         $argsEndPoint = $endPoint->getArguments();
 
-        $this->assertCount(1, $argsEndPoint);
-        $this->assertEquals(2, $argsEndPoint['some']);
+        self::assertCount(1, $argsEndPoint);
+        self::assertEquals(2, $argsEndPoint['some']);
 
-        $this->assertEquals(2, $endPoint->getArgument('some'));
+        self::assertEquals(2, $endPoint->getArgument('some'));
     }
 
     public function testGetCall()
@@ -87,13 +87,13 @@ class AbstractPointTest extends PHPUnit_Framework_TestCase
 
         $callable = $endPoint->getCall();
 
-        $this->assertCount(2, $callable);
-        $this->assertInstanceOf('DemoController', $callable[0]);
-        $this->assertEquals('DemoController', get_class($callable[0]));
-        $this->assertEquals('action', $callable[1]);
+        self::assertCount(2, $callable);
+        self::assertInstanceOf('DemoController', $callable[0]);
+        self::assertEquals('DemoController', get_class($callable[0]));
+        self::assertEquals('action', $callable[1]);
 
-        $this->assertNull($callable[0]->param1);
-        $this->assertNull($callable[0]->param2);
+        self::assertNull($callable[0]->param1);
+        self::assertNull($callable[0]->param2);
     }
 
     public function testGetCallWithParams()
@@ -105,20 +105,18 @@ class AbstractPointTest extends PHPUnit_Framework_TestCase
 
         $callable = $endPoint->getCall(['user',358]);
 
-        $this->assertInstanceOf('DemoController', $callable[0]);
-        $this->assertEquals('DemoController', get_class($callable[0]));
-        $this->assertEquals('action', $callable[1]);
+        self::assertInstanceOf('DemoController', $callable[0]);
+        self::assertEquals('DemoController', get_class($callable[0]));
+        self::assertEquals('action', $callable[1]);
 
-        $this->assertEquals('user', $callable[0]->param1);
-        $this->assertEquals(358, $callable[0]->param2);
+        self::assertEquals('user', $callable[0]->param1);
+        self::assertEquals(358, $callable[0]->param2);
     }
 
-    /**
-     * @expectedException \BadMethodCallException
-     * @expectedExceptionMessage Action not found
-     */
     public function testBadControllerAction()
     {
+        $this->setExpectedException(BadMethodCallException::class, 'Action not found');
+
         $endPoint = new Point\ControllerPoint([
             'controller' => 'DemoController',
             'action' => 'not_exist_action'
@@ -127,12 +125,10 @@ class AbstractPointTest extends PHPUnit_Framework_TestCase
         $endPoint->getCall();
     }
 
-    /**
-     * @expectedException \BadMethodCallException
-     * @expectedExceptionMessage Controller not found
-     */
     public function testBadController()
     {
+        $this->setExpectedException(BadMethodCallException::class, 'Controller not found');
+
         $endPoint = new Point\ControllerPoint([
             'controller' => 'NotExistDemoController',
             'action' => 'action'
@@ -151,6 +147,6 @@ class AbstractPointTest extends PHPUnit_Framework_TestCase
         $callable = $endPoint->getCall(['user',358]);
         $response = $endPoint->call($callable, $endPoint->getArguments());
 
-        $this->assertEquals('action', $response);
+        self::assertEquals('action', $response);
     }
 }

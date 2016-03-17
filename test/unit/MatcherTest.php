@@ -1,6 +1,7 @@
 <?php
 
 use PTS\Router\CollectionRoute;
+use PTS\Router\NotFoundException;
 use PTS\Router\Route;
 use PTS\Router\Point;
 use PTS\Router\Matcher;
@@ -56,26 +57,24 @@ class MatcherTest extends PHPUnit_Framework_TestCase
     {
         $endPoint = $this->matcher->matchFirst($this->routes, '/profile/23/');
 
-        $this->assertEquals('23', $endPoint->getArgument('id'));
-        $this->assertCount(1, $endPoint->getArguments());
+        self::assertEquals('23', $endPoint->getArgument('id'));
+        self::assertCount(1, $endPoint->getArguments());
     }
 
     public function testHttpMethod()
     {
         $endPoint = $this->matcher->matchFirst($this->routes, '/profile/23/', 'GET');
 
-        $this->assertEquals('23', $endPoint->getArgument('id'));
-        $this->assertCount(1, $endPoint->getArguments());
+        self::assertEquals('23', $endPoint->getArgument('id'));
+        self::assertCount(1, $endPoint->getArguments());
     }
 
-    /**
-     * @expectedException Exception
-     * @expectedExceptionMessage Not found
-     */
+
     public function testBadHttpMethod()
     {
+        $this->setExpectedException(NotFoundException::class, 'Not found');
         $endPoint = $this->matcher->matchFirst($this->routes, '/profile/23/', 'POST');
-        $this->assertNull($endPoint);
+        self::assertNull($endPoint);
     }
 
     public function testOnlyXHR()
@@ -83,32 +82,26 @@ class MatcherTest extends PHPUnit_Framework_TestCase
         $endPoint = $this->matcher->matchFirst($this->routes, '/ru/users/23/remove/', 'DELETE', true);
         $endPoint->getCall();
 
-        $this->assertEquals('23', $endPoint->getArgument('id'));
-        $this->assertEquals('ru', $endPoint->getArgument('lang'));
-        $this->assertCount(2, $endPoint->getArguments());
+        self::assertEquals('23', $endPoint->getArgument('id'));
+        self::assertEquals('ru', $endPoint->getArgument('lang'));
+        self::assertCount(2, $endPoint->getArguments());
     }
 
-    /**
-     * @expectedException Exception
-     * @expectedExceptionMessage Not found
-     */
     public function testBadOnlyXHR()
     {
+        $this->setExpectedException(NotFoundException::class, 'Not found');
         $this->matcher->matchFirst($this->routes, '/ru/users/23/remove/', 'DELETE', false);
     }
 
     public function testOnlyNoXHR()
     {
         $endPoint = $this->matcher->matchFirst($this->routes, '/blog/23/', null, false);
-        $this->assertEquals('23', $endPoint->getArgument('id'));
+        self::assertEquals('23', $endPoint->getArgument('id'));
     }
 
-    /**
-     * @expectedException Exception
-     * @expectedExceptionMessage Not found
-     */
     public function testBadGetOnlyNoXHR()
     {
+        $this->setExpectedException(NotFoundException::class, 'Not found');
         $this->matcher->matchFirst($this->routes, '/blog/23/', 'DELETE', true);
     }
 
@@ -116,7 +109,7 @@ class MatcherTest extends PHPUnit_Framework_TestCase
     {
         $endPoint = $this->matcher->matchFirst($this->routes, '/blog/23/', null, true);
         $response = $endPoint->call($endPoint->getCall());
-        $this->assertEquals('404', $response);
+        self::assertEquals('404', $response);
     }
 
     public function testMatch()
@@ -125,9 +118,9 @@ class MatcherTest extends PHPUnit_Framework_TestCase
             /** @var Point\IPoint $endPoint */
             $endPoint->getCall();
 
-            $this->assertEquals('23', $endPoint->getArgument('id'));
-            $this->assertEquals('ru', $endPoint->getArgument('lang'));
-            $this->assertCount(2, $endPoint->getArguments());
+            self::assertEquals('23', $endPoint->getArgument('id'));
+            self::assertEquals('ru', $endPoint->getArgument('lang'));
+            self::assertCount(2, $endPoint->getArguments());
         }
     }
 }
