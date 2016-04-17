@@ -55,9 +55,9 @@ class CollectionRoute
             return $this;
         }
 
-        foreach ($this->routes as $priority => $items) {
+        foreach ($this->routes as $itemPriority => $items) {
             if (isset($items[$name])) {
-                unset($this->routes[$priority][$name]);
+                unset($this->routes[$itemPriority][$name]);
             }
         }
 
