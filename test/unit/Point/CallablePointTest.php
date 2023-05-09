@@ -1,22 +1,26 @@
 <?php
+declare(strict_types=1);
 
+use PHPUnit\Framework\TestCase;
 use PTS\Router\Point;
 
 include_once  dirname(__DIR__) . '/DemoController.php';
 
-class CallablePointTest extends PHPUnit_Framework_TestCase
+class CallablePointTest extends TestCase
 {
 
     public function testCreateWithBadParams()
     {
-        $this->setExpectedException(BadMethodCallException::class, 'Bad params');
+        static::expectException(BadMethodCallException::class);
+        static::expectExceptionMessage('Bad params');
 
         new Point\CallablePoint([]);
     }
 
     public function testCreateWithBadParamCallable()
     {
-        $this->setExpectedException(BadMethodCallException::class, 'It is not callable');
+        static::expectException(BadMethodCallException::class);
+        static::expectExceptionMessage('It is not callable');
 
         new Point\CallablePoint([
             'callable' => 'notCallable'

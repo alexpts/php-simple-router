@@ -1,10 +1,12 @@
 <?php
+declare(strict_types=1);
+
 namespace PTS\Router;
 
 class Route
 {
-    const ONLY_XHR = 1;
-    const ONLY_NO_XHR = 2;
+    public const ONLY_XHR = 1;
+    public const ONLY_NO_XHR = 2;
 
     /** @var string */
     protected $path;
@@ -29,7 +31,7 @@ class Route
      * @param array $allowHttpMethods
      */
     public function __construct(
-        $path,
+        string $path,
         Point\IPoint $point,
         array $restrictions = [], $typeRequest = null,
         array $allowHttpMethods = []
@@ -46,7 +48,7 @@ class Route
     /**
      * @return string
      */
-    public function getPath()
+    public function getPath(): string
     {
         return $this->path;
     }
@@ -54,7 +56,7 @@ class Route
     /**
      * @return Point\IPoint
      */
-    public function getPoint()
+    public function getPoint(): Point\IPoint
     {
         return $this->point;
     }
@@ -62,7 +64,7 @@ class Route
     /**
      * @return array
      */
-    public function getRestrictions()
+    public function getRestrictions(): array
     {
         return $this->restrictions;
     }
@@ -70,7 +72,7 @@ class Route
     /**
      * @return array
      */
-    public function getMethods()
+    public function getMethods(): array
     {
         return $this->methods;
     }

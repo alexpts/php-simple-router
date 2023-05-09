@@ -1,5 +1,7 @@
 <?php
+declare(strict_types=1);
 
+use PHPUnit\Framework\TestCase;
 use PTS\Router\CollectionRoute;
 use PTS\Router\NotFoundException;
 use PTS\Router\Route;
@@ -8,7 +10,7 @@ use PTS\Router\Matcher;
 
 include_once __DIR__ . '/DemoController.php';
 
-class MatcherTest extends PHPUnit_Framework_TestCase
+class MatcherTest extends TestCase
 {
 
     /** @var CollectionRoute */
@@ -16,7 +18,7 @@ class MatcherTest extends PHPUnit_Framework_TestCase
     /** @var Matcher */
     protected $matcher;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->matcher = new Matcher();
         $this->routes = new CollectionRoute();
@@ -72,7 +74,9 @@ class MatcherTest extends PHPUnit_Framework_TestCase
 
     public function testBadHttpMethod()
     {
-        $this->setExpectedException(NotFoundException::class, 'Not found');
+        static::expectException(NotFoundException::class);
+        static::expectExceptionMessage('Not found');
+
         $endPoint = $this->matcher->matchFirst($this->routes, '/profile/23/', 'POST');
         self::assertNull($endPoint);
     }
@@ -89,7 +93,9 @@ class MatcherTest extends PHPUnit_Framework_TestCase
 
     public function testBadOnlyXHR()
     {
-        $this->setExpectedException(NotFoundException::class, 'Not found');
+        static::expectException(NotFoundException::class);
+        static::expectExceptionMessage('Not found');
+
         $this->matcher->matchFirst($this->routes, '/ru/users/23/remove/', 'DELETE', false);
     }
 
@@ -101,7 +107,9 @@ class MatcherTest extends PHPUnit_Framework_TestCase
 
     public function testBadGetOnlyNoXHR()
     {
-        $this->setExpectedException(NotFoundException::class, 'Not found');
+        static::expectException(NotFoundException::class);
+        static::expectExceptionMessage('Not found');
+
         $this->matcher->matchFirst($this->routes, '/blog/23/', 'DELETE', true);
     }
 
@@ -115,7 +123,6 @@ class MatcherTest extends PHPUnit_Framework_TestCase
     public function testMatch()
     {
         foreach ($this->matcher->match($this->routes, '/ru/users/23/remove/', 'DELETE', true) as $endPoint) {
-            /** @var Point\IPoint $endPoint */
             $endPoint->getCall();
 
             self::assertEquals('23', $endPoint->getArgument('id'));

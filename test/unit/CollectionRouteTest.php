@@ -1,17 +1,19 @@
 <?php
+declare(strict_types=1);
 
+use PHPUnit\Framework\TestCase;
 use PTS\Router\CollectionRoute;
 use PTS\Router\Route;
 use PTS\Router\Point;
 
 include_once __DIR__ . '/DemoController.php';
 
-class CollectionRouteTest extends PHPUnit_Framework_TestCase
+class CollectionRouteTest extends TestCase
 {
     /** @var CollectionRoute */
     protected $routes;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->routes = new CollectionRoute();
     }
@@ -36,7 +38,8 @@ class CollectionRouteTest extends PHPUnit_Framework_TestCase
 
     public function testAddDuplicate()
     {
-        $this->setExpectedException(Exception::class, 'Route with the same name already exists');
+        static::expectException(Exception::class);
+        static::expectExceptionMessage('Route with the same name already exists');
 
         $endPoint = new Point\ControllerPoint([
             'controller' =>'DemoController',

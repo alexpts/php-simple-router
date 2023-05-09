@@ -1,11 +1,13 @@
 <?php
+declare(strict_types=1);
 
+use PHPUnit\Framework\TestCase;
 use PTS\Router\Route;
 use PTS\Router\Point;
 
 include_once __DIR__ . '/DemoController.php';
 
-class RouteTest extends PHPUnit_Framework_TestCase
+class RouteTest extends TestCase
 {
 
     public function testCreate()

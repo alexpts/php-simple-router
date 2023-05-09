@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 class DemoController
 {
@@ -8,7 +9,7 @@ class DemoController
     /**
      * @return string
      */
-    static public function getAll()
+    static public function getAll(): string
     {
         return 'getAll';
     }
@@ -26,7 +27,7 @@ class DemoController
     /**
      * @return string
      */
-    public function __invoke()
+    public function __invoke(): string
     {
         return $this->index();
     }
@@ -34,7 +35,7 @@ class DemoController
     /**
      * @return string
      */
-    public function index()
+    public function index(): string
     {
         return 'index';
     }
@@ -42,7 +43,7 @@ class DemoController
     /**
      * @return string
      */
-    public function action()
+    public function action(): string
     {
         return 'action';
     }
@@ -50,7 +51,7 @@ class DemoController
     /**
      * @return string
      */
-    public function get()
+    public function get(): string
     {
         return 'get';
     }
@@ -58,7 +59,7 @@ class DemoController
     /**
      * @return string
      */
-    public function post()
+    public function post(): string
     {
         return 'post';
     }
@@ -66,7 +67,7 @@ class DemoController
     /**
      * @return string
      */
-    public function remove()
+    public function remove(): string
     {
         return 'remove';
     }
@@ -75,7 +76,7 @@ class DemoController
      * @param string $id
      * @return string
      */
-    public function user($id)
+    public function user(string $id): string
     {
         return 'user:' . $id;
     }

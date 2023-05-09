@@ -3,7 +3,7 @@ namespace PTS\Router;
 
 class CollectionRoute
 {
-    /** @var [] */
+    /** @var array */
     protected $routes;
 
     public function __construct()
@@ -15,7 +15,7 @@ class CollectionRoute
      * @param string $name
      * @return bool
      */
-    protected function isHas($name)
+    protected function isHas(string $name): bool
     {
         foreach ($this->routes as $items) {
             if (array_key_exists($name, $items)) {
@@ -33,7 +33,7 @@ class CollectionRoute
      * @return $this
      * @throws \Exception
      */
-    public function add($name, Route $route, $priority = 50)
+    public function add(string $name, Route $route, int $priority = 50)
     {
         if ($this->isHas($name)) {
             throw new \Exception('Route with the same name already exists');
@@ -48,7 +48,7 @@ class CollectionRoute
      * @param int|null $priority
      * @return CollectionRoute
      */
-    public function remove($name, $priority = null)
+    public function remove(string $name, int $priority = null)
     {
         if (is_int($priority) && isset($this->routes[$priority][$name])) {
             unset($this->routes[$priority][$name]);
@@ -76,7 +76,7 @@ class CollectionRoute
     /**
      * @return Route[]
      */
-    public function getRoutes()
+    public function getRoutes(): array
     {
         $listRoutes = [];
         krsort($this->routes, SORT_NUMERIC);

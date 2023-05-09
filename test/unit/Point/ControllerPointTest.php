@@ -1,10 +1,12 @@
 <?php
+declare(strict_types=1);
 
+use PHPUnit\Framework\TestCase;
 use PTS\Router\Point;
 
 include_once  dirname(__DIR__) . '/DemoController.php';
 
-class ControllerPointTest extends PHPUnit_Framework_TestCase
+class ControllerPointTest extends TestCase
 {
 
     public function testCreate()
@@ -23,24 +25,22 @@ class ControllerPointTest extends PHPUnit_Framework_TestCase
         $this->assertCount(0, $endPoint->getArguments());
     }
 
-    /**
-     * @expectedException BadMethodCallException
-     * @expectedExceptionMessage Bad params
-     */
     public function testCreateWithoutController()
     {
-        $endPoint = new Point\ControllerPoint([
+        static::expectException(BadMethodCallException::class);
+        static::expectExceptionMessage('Bad params');
+
+        new Point\ControllerPoint([
             'action' => 'action'
         ]);
     }
 
-    /**
-     * @expectedException BadMethodCallException
-     * @expectedExceptionMessage Bad params
-     */
     public function testCreateWithoutAction()
     {
-        $endPoint = new Point\ControllerPoint([
+        static::expectException(BadMethodCallException::class);
+        static::expectExceptionMessage('Bad params');
+
+        new Point\ControllerPoint([
             'controller' => 'DemoController'
         ]);
     }

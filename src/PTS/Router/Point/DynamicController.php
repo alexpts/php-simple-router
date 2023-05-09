@@ -43,7 +43,7 @@ class DynamicController extends AbstractPoint implements IPoint
     /**
      * @return string
      */
-    protected function getControllerClass()
+    protected function getControllerClass(): string
     {
         return $this->prefix . $this->controllerSlug;
     }

@@ -23,20 +23,20 @@ interface IPoint
     public function setArguments(array $args);
 
     /**
-     * @param $name
+     * @param string$name
      * @param $value
      * @return $this
      */
-    public function setArgument($name, $value);
+    public function setArgument(string $name, $value);
 
     /**
      * @return array
      */
-    public function getArguments();
+    public function getArguments(): array;
 
     /**
      * @param string $name
      * @return mixed
      */
-    public function getArgument($name);
+    public function getArgument(string $name);
 }

@@ -1,10 +1,12 @@
 <?php
+declare(strict_types=1);
 
+use PHPUnit\Framework\TestCase;
 use PTS\Router\Point;
 
 include_once  dirname(__DIR__) . '/DemoController.php';
 
-class ControllerDynamicActionTest extends PHPUnit_Framework_TestCase
+class ControllerDynamicActionTest extends TestCase
 {
 
     public function testCreate()
@@ -40,7 +42,8 @@ class ControllerDynamicActionTest extends PHPUnit_Framework_TestCase
 
     public function testCreateWithBadParams()
     {
-        $this->setExpectedException(BadMethodCallException::class, 'Bad params');
+        static::expectException(BadMethodCallException::class);
+        static::expectExceptionMessage('Bad params');
 
         new Point\ControllerDynamicAction([]);
     }

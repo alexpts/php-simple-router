@@ -1,7 +1,9 @@
 <?php
+declare(strict_types=1);
+
 namespace PTS\Router;
 
-use PTS\Router;
+use Generator;
 use PTS\Router\Point\IPoint;
 
 class Matcher
@@ -10,11 +12,12 @@ class Matcher
      * @param CollectionRoute $routes
      * @param string $path
      * @param null|string $method
-     * @param null|bool $isXHR
-     * @return \Generator
+     * @param bool $isXHR
+     * @return Generator
+     *
      * @throws NotFoundException
      */
-    public function match(CollectionRoute $routes, $path, $method = null, $isXHR = null)
+    public function match(CollectionRoute $routes, string $path, ?string $method = null, ?bool $isXHR = null): Generator
     {
         $find = 0;
         foreach ($routes->getRoutes() as $route) {
@@ -35,9 +38,9 @@ class Matcher
      * @param string $path
      * @param null|string $method
      * @param null|bool $isXHR
-     * @return false|null|IPoint
+     * @return null|IPoint
      */
-    protected function matchRoute(Route $route, $path, $method = null, $isXHR = null)
+    protected function matchRoute(Route $route, string $path, ?string $method = null, ?bool $isXHR = null): ?IPoint
     {
         if ($method !== null && !$this->isAllowHttpMethod($method, $route)) {
             return null;
@@ -53,12 +56,13 @@ class Matcher
     /**
      * @param CollectionRoute $routes
      * @param string $path
-     * @param null $method
+     * @param null|string $method
      * @param null $isXHR
+     *
      * @return IPoint|null
-     * @throws \Exception
+     * @throws NotFoundException
      */
-    public function matchFirst(CollectionRoute $routes, $path, $method = null, $isXHR = null)
+    public function matchFirst(CollectionRoute $routes, string $path, ?string $method = null, $isXHR = null): ?IPoint
     {
         return $this->match($routes, $path, $method, $isXHR)->current();
     }
@@ -68,7 +72,7 @@ class Matcher
      * @param bool $isXHR
      * @return bool
      */
-    protected function isAllowRequestType(Route $route, $isXHR)
+    protected function isAllowRequestType(Route $route, bool $isXHR): bool
     {
         switch ($route->typeRequest) {
             case $route::ONLY_XHR:
@@ -85,9 +89,9 @@ class Matcher
     /**
      * @param Route $route
      * @param string $pathUrl
-     * @return IPoint|false
+     * @return IPoint|null
      */
-    protected function matchRule(Route $route, $pathUrl)
+    protected function matchRule(Route $route, string $pathUrl): ?IPoint
     {
         if (preg_match('~^' .  $this->getRegExp($route) . '$~Uiu', $pathUrl, $values)) {
             $filterValues = array_filter(array_keys($values), 'is_string');
@@ -96,7 +100,7 @@ class Matcher
             return $route->getPoint()->setArguments($values);
         }
 
-        return false;
+        return null;
     }
 
     /**
@@ -125,10 +129,8 @@ class Matcher
      * @param Route $route
      * @return bool
      */
-    protected function isAllowHttpMethod($method, Route $route)
+    protected function isAllowHttpMethod(string $method, Route $route): bool
     {
-        return count($route->getMethods()) === 0
-            ? true
-            : in_array(strtoupper($method), $route->getMethods(), true);
+        return count($route->getMethods()) === 0 || in_array(strtoupper($method), $route->getMethods(), true);
     }
 }

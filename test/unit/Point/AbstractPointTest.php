@@ -1,10 +1,12 @@
 <?php
+declare(strict_types=1);
 
+use PHPUnit\Framework\TestCase;
 use PTS\Router\Point;
 
 include_once  dirname(__DIR__) . '/DemoController.php';
 
-class AbstractPointTest extends PHPUnit_Framework_TestCase
+class AbstractPointTest extends TestCase
 {
 
     public function testCreate()
@@ -115,7 +117,8 @@ class AbstractPointTest extends PHPUnit_Framework_TestCase
 
     public function testBadControllerAction()
     {
-        $this->setExpectedException(BadMethodCallException::class, 'Action not found');
+        static::expectException(BadMethodCallException::class);
+        static::expectExceptionMessage('Action not found');
 
         $endPoint = new Point\ControllerPoint([
             'controller' => 'DemoController',
@@ -127,7 +130,8 @@ class AbstractPointTest extends PHPUnit_Framework_TestCase
 
     public function testBadController()
     {
-        $this->setExpectedException(BadMethodCallException::class, 'Controller not found');
+        static::expectException(BadMethodCallException::class);
+        static::expectExceptionMessage('Controller not found');
 
         $endPoint = new Point\ControllerPoint([
             'controller' => 'NotExistDemoController',

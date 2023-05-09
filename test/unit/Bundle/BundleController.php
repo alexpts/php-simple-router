@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Bundle;
 
 class BundleController
@@ -9,7 +11,7 @@ class BundleController
     /**
      * @return string
      */
-    static public function getAll()
+    static public function getAll(): string
     {
         return 'getAll';
     }
@@ -27,7 +29,7 @@ class BundleController
     /**
      * @return string
      */
-    public function __invoke()
+    public function __invoke(): string
     {
         return $this->index();
     }
@@ -43,7 +45,7 @@ class BundleController
     /**
      * @return string
      */
-    public function action()
+    public function action(): string
     {
         return 'action';
     }
@@ -51,7 +53,7 @@ class BundleController
     /**
      * @return string
      */
-    public function get()
+    public function get(): string
     {
         return 'get';
     }
@@ -59,7 +61,7 @@ class BundleController
     /**
      * @return string
      */
-    public function post()
+    public function post(): string
     {
         return 'post';
     }
@@ -67,16 +69,17 @@ class BundleController
     /**
      * @return string
      */
-    public function remove()
+    public function remove(): string
     {
         return 'remove';
     }
 
     /**
      * @param string $id
+     *
      * @return string
      */
-    public function user($id)
+    public function user(string $id): string
     {
         return 'user:' . $id;
     }

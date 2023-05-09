@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace PTS\Router\Point;
 
 abstract class AbstractPoint
@@ -44,7 +46,7 @@ abstract class AbstractPoint
      * @param mixed $value
      * @return $this
      */
-    public function setArgument($name, $value)
+    public function setArgument(string $name, $value)
     {
         $this->arguments[$name] = $value;
         return $this;
@@ -53,7 +55,7 @@ abstract class AbstractPoint
     /**
      * @return array
      */
-    public function getArguments()
+    public function getArguments(): array
     {
         return $this->arguments;
     }
@@ -62,11 +64,9 @@ abstract class AbstractPoint
      * @param string $name
      * @return mixed
      */
-    public function getArgument($name)
+    public function getArgument(string $name)
     {
-        return isset($this->arguments[$name])
-            ? $this->arguments[$name]
-            : null;
+        return $this->arguments[$name] ?? null;
     }
 
     /**
@@ -81,11 +81,11 @@ abstract class AbstractPoint
     }
 
     /**
-     * @param $controller
+     * @param object|string $controller
      * @param string $action
      * @throws \BadMethodCallException
      */
-    protected function checkAction($controller, $action)
+    protected function checkAction($controller, string $action)
     {
         if (!method_exists($controller, $action)) {
             throw new \BadMethodCallException('Action not found');
