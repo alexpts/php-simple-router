@@ -17,7 +17,7 @@
         "test": "vendor/bin/phpunit --config=test/phpunit.xml"
     },
     "require": {
-        "php": ">7.3"
+        "php": ">=7.3"
     },
     "autoload": {
         "psr-0": {
